@@ -23,16 +23,17 @@ public class Card : MonoBehaviour
     private bool isFlipping = false;
     // 카드가 뒤집히고 있는지 확인
 
-    // Start is called before the first frame update
-    void Start()
+    public int cardID;
+    // 카드 아이디
+
+    public void SetCardID(int id)
     {
-        
+        cardID = id;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetAnimalSprite(Sprite sprite)  // 전달값은 Sprite
     {
-        
+        this.animalSprite = sprite;
     }
 
     public void FlipCard()      // 카드 뒤집기
