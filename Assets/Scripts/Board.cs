@@ -15,20 +15,41 @@ public class Board : MonoBehaviour
     private List<int> cardIDList = new List<int>();
     // ID를 관리하는 리스트, 비어있는 정수형 리스트
 
+    private List<Card> cardList = new List<Card>();
+    // 모든 카드 뒤집는 리스트
+
     // Start is called before the first frame update
     void Start()
     {
         GenerateCardID();
+        ShuffleCardID();
         InitBoard();
     }
 
     void GenerateCardID()
     {
-        // 0 0, 1 1, 2 2, 3 3, .... 19 19 들어간다
+        // 0 0, 1 1, 2 2, 3 3, .... 9 9 들어간다
         for(int i=0; i<cardSprites.Length; i++)
         {
             cardIDList.Add(i);  // i 값을 추가
             cardIDList.Add(i);
+        }
+    }
+
+    void ShuffleCardID()
+    {
+        int cardCount = cardIDList.Count;
+        // 카드 ID 개수, cardIDList.Count : cardIDList안에 있는 갸수
+
+        for(int i =0; i< cardCount; i++)
+        {
+            int randomIndex = Random.Range(i, cardCount);
+            int temp = cardIDList[randomIndex];
+            cardIDList[randomIndex] = cardIDList[i];
+            cardIDList[i] = temp;
+            // 카드 셔플
+
+            //Debug.Log(cardIDList[i]);
         }
     }
     
@@ -93,8 +114,16 @@ public class Board : MonoBehaviour
                 card.SetCardID(cardID);
                 card.SetAnimalSprite(cardSprites[cardID]);
                 // 인덱스 기준으로 카드가 바뀐다
+                cardList.Add(card);
+                // 새로운 리스트 추가(모든 카드 뒤집는 리스트 추가)
 
                 }
         }
+    }
+
+    public List<Card> GetCards()    // 카드리스트를 반환
+    {
+        return cardList;
+        // 20장의 카드를 List형으로 받아온다
     }
 }
